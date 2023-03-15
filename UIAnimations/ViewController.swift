@@ -11,6 +11,8 @@ class ViewController: UIViewController {
 
     //MARK: OUTLETS
     @IBOutlet weak var animatableView: UIView!
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +54,8 @@ class ViewController: UIViewController {
         //applyScaleTransformation()
         //applyRotationTransformation()
         //applyTranslationTransformation()
-        applyComplexTransform()
+        //applyComplexTransform()
+        animateWithConstraintsChange()
     }
 
     //Transform: Arayüz elemeanları üzerinde, scale rotate ve translate gibi değişiklikler yapılmasını sağlayan bir property'dir
@@ -110,8 +113,17 @@ class ViewController: UIViewController {
             }
             
         }
-
+    }
+    
+    private func animateWithConstraintsChange() {
+        self.widthConstraint.constant = 400
+        self.heightConstraint.constant = 50
         
+        //Bir önceki durum ile şu an arasındaki Constraint'lerde bir değişim varsa, constraint'leri yeniden hesaplar. (Bu işlem anime edilebilir.)
+        
+        UIView.animate(withDuration: 1, delay: 1) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
 
